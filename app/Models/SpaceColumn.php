@@ -6,9 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Space extends Model
+class SpaceColumn extends Model
 {
-    use Concerns\HasCreated, Concerns\HasUpdated;
     use HasFactory, SoftDeletes;
 
     protected $guarded = [];
@@ -18,13 +17,13 @@ class Space extends Model
         'updated_at' => 'datetime',
     ];
 
+    public function space()
+    {
+        return $this->belongsTo(Space::class);
+    }
+
     public function tasks()
     {
         return $this->hasMany(Task::class);
-    }
-
-    public function columns()
-    {
-        return $this->hasMany(SpaceColumn::class);
     }
 }

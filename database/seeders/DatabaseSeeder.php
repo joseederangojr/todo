@@ -17,9 +17,38 @@ class DatabaseSeeder extends Seeder
             'password' => 'password',
         ]);
 
-        $user->spaces()->create([
+        /** @var \App\Models\Space $space */
+        $space = $user->spaces()->create([
             'name' => $user->name,
             'updated_by_id' => $user->id,
+        ]);
+
+        $space->columns()->createMany([
+            [
+                'name' => 'Triage',
+                'status' => 'triage',
+                'order' => 0,
+            ],
+            [
+                'name' => 'To Do',
+                'status' => 'todo',
+                'order' => 1,
+            ],
+            [
+                'name' => 'Doing',
+                'status' => 'doing',
+                'order' => 2,
+            ],
+            [
+                'name' => 'Done',
+                'status' => 'done',
+                'order' => 3,
+            ],
+            [
+                'name' => 'Abandon',
+                'status' => 'abandon',
+                'order' => 4,
+            ],
         ]);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Task;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateTaskRequest extends FormRequest
 {
@@ -25,8 +26,12 @@ class UpdateTaskRequest extends FormRequest
             'title' => 'required|string|max:100',
             'description' => 'string',
             'status' => 'in:triage,todo,doing,done,abandon',
-            'assigned_to_id' => 'int|nullable|exists:users,id',
+            'assigned_to_id' => 'sometimes|nullable|exists:users,id',
             'due_date' => 'date|nullable',
+            'space_column_id' => Rule::exists('space_columns', 'id')->where(
+                'space_id',
+                $this->space->id
+            ),
         ];
     }
 }

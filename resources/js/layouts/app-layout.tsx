@@ -1,11 +1,12 @@
-import * as React from "react";
-import { MixIcon } from "@radix-ui/react-icons";
-import { Link, router, usePage, useRemember } from "@inertiajs/react";
-import { PageProps, Space } from "@/types";
-import { UserNavigationDropdown } from "@/components/user-navigation-dropdown";
 import { SpaceSelect } from "@/components/space-select";
-import { CreateSpaceDialog } from "@/components/create-space-dialog";
+import { UserNavigationDropdown } from "@/components/user-navigation-dropdown";
 import { useSpace } from "@/hooks/use-space";
+import { PageProps, Space } from "@/types";
+import { Link, router, usePage, useRemember } from "@inertiajs/react";
+import { MixIcon } from "@radix-ui/react-icons";
+import * as React from "react";
+
+const CreateSpaceDialog = React.lazy(() => import("@/components/create-space-dialog"));
 
 type Props = {
     space: Space;
@@ -24,7 +25,7 @@ function AppLayout(props: React.PropsWithChildren) {
 
     const handleOnSpaceSelected = (id: string) => {
         setSelectedSpace(id);
-        router.visit(`/space/${id}`, {
+        router.replace(`/space/${id}`, {
             preserveState: true,
         });
     };
@@ -34,7 +35,7 @@ function AppLayout(props: React.PropsWithChildren) {
     return (
         <>
             <div className="flex flex-col w-full h-full">
-                <div className="flex items-center justify-between h-16 w-full px-8">
+                <div className="flex items-center justify-between h-16 w-full px-8 border-b">
                     <div className="flex w-full items-center mr-auto">
                         <Link
                             data-dusk="nav-home"
@@ -56,10 +57,14 @@ function AppLayout(props: React.PropsWithChildren) {
                     <UserNavigationDropdown name={whoami.name} />
                 </div>
             </div>
-            <CreateSpaceDialog
-                open={createSpaceDialogIsOpen}
-                onOpenChange={handleOnOpenChange}
-            />
+            <React.Suspense>
+                {createSpaceDialogIsOpen && (
+                    <CreateSpaceDialog
+                        open={createSpaceDialogIsOpen}
+                        onOpenChange={handleOnOpenChange}
+                    />
+                )}
+            </React.Suspense>
             <div className="px-8 py-4">{props.children}</div>
         </>
     );

@@ -18,7 +18,7 @@ function UserNavigationDropdown(props: UserProfileProps) {
         <DropdownMenu>
             <DropdownMenuTrigger
                 data-dusk="user-nav-trigger"
-                className="flex items-center">
+                className="flex items-center w-full max-w-max">
                 <>
                     <Avatar className="mr-2">
                         <AvatarFallback>{initials}</AvatarFallback>

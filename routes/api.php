@@ -35,4 +35,8 @@ Route::apiResource('space', SpaceController::class)
     ->only(['index', 'store', 'show', 'update', 'destroy']);
 Route::apiResource('space.task', SpaceTaskController::class)
     ->middleware('auth')
-    ->only(['index', 'store', 'show', 'update', 'destroy']);
+    ->only(['index', 'update', 'store', 'show', 'destroy']);
+
+// Route::post('/space/{space}/task/{task}', [SpaceTaskController::class, 'update'])->name(
+//     'space.task.update'
+// );

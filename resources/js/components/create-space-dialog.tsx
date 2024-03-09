@@ -7,15 +7,15 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
 import {
     Form,
-    FormItem,
-    FormField,
-    FormLabel,
     FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
     FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { useForm } from "@inertiajs/react";
 
 type CreateSpaceDialogProps = {
@@ -80,3 +80,5 @@ function CreateSpaceDialog(props: CreateSpaceDialogProps) {
 }
 
 export { CreateSpaceDialog };
+
+export default CreateSpaceDialog;

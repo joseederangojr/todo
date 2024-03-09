@@ -22,4 +22,9 @@ class Task extends Model
     {
         return $this->belongsTo(Space::class);
     }
+
+    public function column()
+    {
+        return $this->belongsTo(SpaceColumn::class);
+    }
 }

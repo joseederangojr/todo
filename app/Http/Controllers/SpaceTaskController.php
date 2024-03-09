@@ -56,11 +56,8 @@ class SpaceTaskController extends Controller
     public function update(UpdateTaskRequest $request, Space $space, Task $task)
     {
         $task->update($request->validated());
-        $task->refresh();
 
-        return response()->json([
-            'data' => $task,
-        ]);
+        return back(status: 303);
     }
 
     /**

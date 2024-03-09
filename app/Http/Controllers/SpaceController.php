@@ -51,6 +51,34 @@ class SpaceController extends Controller
             ]);
         }
 
+        $space->columns()->createMany([
+            [
+                'name' => 'Triage',
+                'status' => 'triage',
+                'order' => 0,
+            ],
+            [
+                'name' => 'To Do',
+                'status' => 'todo',
+                'order' => 1,
+            ],
+            [
+                'name' => 'Doing',
+                'status' => 'doing',
+                'order' => 2,
+            ],
+            [
+                'name' => 'Done',
+                'status' => 'done',
+                'order' => 3,
+            ],
+            [
+                'name' => 'Abandon',
+                'status' => 'abandon',
+                'order' => 4,
+            ],
+        ]);
+
         return back();
     }
 
@@ -60,6 +88,8 @@ class SpaceController extends Controller
     public function show(Space $space)
     {
         Gate::authorize('view', [$space]);
+
+        $space->load('columns', 'columns.tasks');
 
         return Inertia::render('space/[id]/page', [
             'breadcrumbs' => [
@@ -81,7 +111,6 @@ class SpaceController extends Controller
                 ],
             ],
             'space' => $space,
-            'tasks' => $space->tasks,
         ]);
     }
 
@@ -93,7 +122,10 @@ class SpaceController extends Controller
         $space->update($request->validated());
         $space->refresh();
 
-        return back();
+        return response()->redirectTo(
+            route('web.space.show', ['space' => $space->id]),
+            303
+        );
     }
 
     /**

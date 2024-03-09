@@ -11,24 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('spaces', function (Blueprint $table) {
+        Schema::create('space_columns', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('space_id')->unsigned();
             $table->string('name');
-            $table->bigInteger('created_by_id')->unsigned();
-            $table->bigInteger('updated_by_id')->unsigned();
-            $table->enum('type', ['personal', 'team'])->default('personal');
+            $table->integer('order');
+            $table->string('status')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
             $table
-                ->foreign('created_by_id')
+                ->foreign('space_id')
                 ->references('id')
-                ->on('users')
-                ->cascadeOnDelete();
-            $table
-                ->foreign('updated_by_id')
-                ->references('id')
-                ->on('users')
+                ->on('spaces')
                 ->cascadeOnDelete();
         });
     }
@@ -38,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('spaces');
+        Schema::dropIfExists('space_columns');
     }
 };

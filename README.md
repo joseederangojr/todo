@@ -9,5 +9,5 @@
 - [x] Add Todo
 - [x] Update Todo
 - [x] Remove Todo
-- [] Database integration
-- [] TUI
+- [ ] Database integration
+- [ ] TUI

@@ -1,8 +1,6 @@
 # Todo
 > Basic todo golang app
 
-
-
 ## Features
 - [x] Get All Todo
 - [x] Get Todo
@@ -11,3 +9,5 @@
 - [x] Remove Todo
 - [ ] Database integration
 - [ ] TUI
+- [ ] Testing
+
